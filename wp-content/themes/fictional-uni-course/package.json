@@ -18,5 +18,8 @@
     "@wordpress/scripts": "*",
     "axios": "^0.21.1",
     "normalize.css": "^8.0.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
   }
 }

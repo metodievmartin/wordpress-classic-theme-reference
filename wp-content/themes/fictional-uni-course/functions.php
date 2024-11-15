@@ -25,7 +25,8 @@ function boilerplate_load_assets() {
 	wp_enqueue_style( 'theme-extra-css', get_theme_file_uri( '/build/style-index.css' ) );
 
 	wp_localize_script( 'theme-main-js', 'universityData', array(
-		'root_url' => get_site_url()
+		'root_url' => get_site_url(),
+		'nonce'    => wp_create_nonce( 'wp_rest' ),
 	) );
 }
 
@@ -151,6 +152,22 @@ function university_map_api( $api ) {
 
 add_filter( 'acf/fields/google_map/api', 'university_map_api' );
 
+// Force note posts to be private
+add_filter( 'wp_insert_post_data', 'make_note_private' );
+
+function make_note_private( $data ) {
+	if ( $data['post_type'] === 'note' ) {
+		$data['post_title']   = sanitize_text_field( $data['post_title'] );
+		$data['post_content'] = sanitize_textarea_field( $data['post_content'] );
+	}
+
+	if ( $data['post_type'] === 'note' && $data['post_status'] !== 'trash' ) {
+		$data['post_status'] = 'private';
+	}
+
+	return $data;
+}
+
 // === helper functions ====
 
 function get_active_classes_for_page( $page_slug ) {
@@ -165,6 +182,7 @@ function get_active_classes_for_page( $page_slug ) {
 function get_active_classes_for_post( $post_type, $additional_check_for_page = - 1 ) {
 	if ( get_post_type() === $post_type || is_page( $additional_check_for_page ) ) {
 		return 'class="current-menu-item"';
+
 	}
 }
 

@@ -13,10 +13,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_MobileMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/MobileMenu */ "./src/modules/MobileMenu.js");
 /* harmony import */ var _modules_HeroSlider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/HeroSlider */ "./src/modules/HeroSlider.js");
 /* harmony import */ var _modules_GoogleMap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/GoogleMap */ "./src/modules/GoogleMap.js");
-/* harmony import */ var _modules_Search__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/Search */ "./src/modules/Search.jsx");
+/* harmony import */ var _modules_Search__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/Search */ "./src/modules/Search.js");
+/* harmony import */ var _modules_MyNotes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/MyNotes */ "./src/modules/MyNotes.js");
 
 
 // Our modules / classes
+
 
 
 
@@ -27,6 +29,7 @@ const mobileMenu = new _modules_MobileMenu__WEBPACK_IMPORTED_MODULE_1__["default
 const heroSlider = new _modules_HeroSlider__WEBPACK_IMPORTED_MODULE_2__["default"]();
 const googleMap = new _modules_GoogleMap__WEBPACK_IMPORTED_MODULE_3__["default"]();
 const search = new _modules_Search__WEBPACK_IMPORTED_MODULE_4__["default"]();
+const myNotes = new _modules_MyNotes__WEBPACK_IMPORTED_MODULE_5__["default"]();
 
 /***/ }),
 
@@ -42,12 +45,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class GMap {
   constructor() {
-    document.querySelectorAll(".acf-map").forEach(el => {
+    document.querySelectorAll('.acf-map').forEach(el => {
       this.new_map(el);
     });
   }
   new_map($el) {
-    var $markers = $el.querySelectorAll(".marker");
+    var $markers = $el.querySelectorAll('.marker');
     var args = {
       zoom: 16,
       center: new google.maps.LatLng(0, 0),
@@ -67,7 +70,7 @@ class GMap {
   } // end new_map
 
   add_marker($marker, map) {
-    var latlng = new google.maps.LatLng($marker.getAttribute("data-lat"), $marker.getAttribute("data-lng"));
+    var latlng = new google.maps.LatLng($marker.getAttribute('data-lat'), $marker.getAttribute('data-lng'));
     var marker = new google.maps.Marker({
       position: latlng,
       map: map
@@ -82,7 +85,7 @@ class GMap {
       });
 
       // show info window when marker is clicked
-      google.maps.event.addListener(marker, "click", function () {
+      google.maps.event.addListener(marker, 'click', function () {
         infowindow.open(map, marker);
       });
     }
@@ -126,22 +129,22 @@ __webpack_require__.r(__webpack_exports__);
 
 class HeroSlider {
   constructor() {
-    if (document.querySelector(".hero-slider")) {
+    if (document.querySelector('.hero-slider')) {
       // count how many slides there are
-      const dotCount = document.querySelectorAll(".hero-slider__slide").length;
+      const dotCount = document.querySelectorAll('.hero-slider__slide').length;
 
       // Generate the HTML for the navigation dots
-      let dotHTML = "";
+      let dotHTML = '';
       for (let i = 0; i < dotCount; i++) {
         dotHTML += `<button class="slider__bullet glide__bullet" data-glide-dir="=${i}"></button>`;
       }
 
       // Add the dots HTML to the DOM
-      document.querySelector(".glide__bullets").insertAdjacentHTML("beforeend", dotHTML);
+      document.querySelector('.glide__bullets').insertAdjacentHTML('beforeend', dotHTML);
 
       // Actually initialize the glide / slider script
-      var glide = new _glidejs_glide__WEBPACK_IMPORTED_MODULE_0__["default"](".hero-slider", {
-        type: "carousel",
+      var glide = new _glidejs_glide__WEBPACK_IMPORTED_MODULE_0__["default"]('.hero-slider', {
+        type: 'carousel',
         perView: 1,
         autoplay: 3000
       });
@@ -165,27 +168,156 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class MobileMenu {
   constructor() {
-    this.menu = document.querySelector(".site-header__menu");
-    this.openButton = document.querySelector(".site-header__menu-trigger");
+    this.menu = document.querySelector('.site-header__menu');
+    this.openButton = document.querySelector('.site-header__menu-trigger');
     this.events();
   }
   events() {
-    this.openButton.addEventListener("click", () => this.openMenu());
+    this.openButton.addEventListener('click', () => this.openMenu());
   }
   openMenu() {
-    this.openButton.classList.toggle("fa-bars");
-    this.openButton.classList.toggle("fa-window-close");
-    this.menu.classList.toggle("site-header__menu--active");
+    this.openButton.classList.toggle('fa-bars');
+    this.openButton.classList.toggle('fa-window-close');
+    this.menu.classList.toggle('site-header__menu--active');
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MobileMenu);
 
 /***/ }),
 
-/***/ "./src/modules/Search.jsx":
+/***/ "./src/modules/MyNotes.js":
 /*!********************************!*\
-  !*** ./src/modules/Search.jsx ***!
+  !*** ./src/modules/MyNotes.js ***!
   \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+class MyNotes {
+  constructor() {
+    this.events();
+  }
+  events() {
+    const notesContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#my-notes');
+    notesContainer.on('click', '.delete-note', this.deleteNote.bind(this));
+    notesContainer.on('click', '.edit-note', this.editNote.bind(this));
+    notesContainer.on('click', '.update-note', this.updateNote.bind(this));
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submit-note').on('click', this.createNote.bind(this));
+  }
+  editNote(e) {
+    console.log('here');
+    const currentNoteContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.note-container');
+    if (currentNoteContainer.data('state') === 'editable') {
+      this.makeNoteReadOnly(currentNoteContainer);
+    } else {
+      this.makeNoteEditable(currentNoteContainer);
+    }
+  }
+  makeNoteEditable(currentNoteContainer) {
+    currentNoteContainer.data('state', 'editable');
+    currentNoteContainer.find('.edit-note').html(`<i class="fa fa-times" aria-hidden="true"></i> Cancel`);
+    currentNoteContainer.find('.note-title-field, .note-body-field').removeAttr('readonly').addClass('note-active-field');
+    currentNoteContainer.find('.update-note').addClass('update-note--visible');
+  }
+  makeNoteReadOnly(currentNoteContainer) {
+    currentNoteContainer.data('state', 'cancel');
+    currentNoteContainer.find('.edit-note').html(`<i class="fa fa-pencil" aria-hidden="true"></i> Edit`);
+    currentNoteContainer.find('.note-title-field, .note-body-field').attr('readonly', 'readonly').removeClass('note-active-field');
+    currentNoteContainer.find('.update-note').removeClass('update-note--visible');
+  }
+  createNote(e) {
+    const noteTitle = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.new-note-title');
+    const noteBody = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.new-note-body');
+    const newNoteData = {
+      title: noteTitle.val(),
+      content: noteBody.val(),
+      status: 'private' // fixes the default status of 'draft' when a note is created via REST
+    };
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      beforeSend: xhr => {
+        xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
+      },
+      url: `${universityData.root_url}/wp-json/wp/v2/note/`,
+      type: 'POST',
+      data: newNoteData,
+      success: response => {
+        console.log('Created successfully!');
+        console.log(response);
+        noteTitle.val('');
+        noteBody.val('');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(`
+          <li class="note-container" data-note-id="${response.id}">
+            <input readonly class="note-title-field" value="${response.title.raw}">
+            <span class="edit-note"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
+            <span class="delete-note"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</span>
+            <textarea readonly class="note-body-field">${response.content.raw}</textarea>
+            <span class="update-note btn btn--blue btn--small"><i class="fa fa-arrow-right" aria-hidden="true"></i> Save</span>
+          </li>
+          `).prependTo('#my-notes').hide().slideDown();
+      },
+      error: error => {
+        console.log('error');
+        console.log(error);
+      }
+    });
+  }
+  updateNote(e) {
+    const currentNoteContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.note-container');
+    const updatedData = {
+      title: currentNoteContainer.find('.note-title-field').val(),
+      content: currentNoteContainer.find('.note-body-field').val()
+    };
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      beforeSend: xhr => {
+        xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
+      },
+      url: `${universityData.root_url}/wp-json/wp/v2/note/${currentNoteContainer.data('note-id')}`,
+      type: 'POST',
+      data: updatedData,
+      success: response => {
+        console.log('Updated successfully');
+        console.log(response);
+        this.makeNoteReadOnly(currentNoteContainer);
+      },
+      error: error => {
+        console.log('error');
+        console.log(error);
+      }
+    });
+  }
+  deleteNote(e) {
+    const currentNoteContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.note-container');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      beforeSend: xhr => {
+        xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
+      },
+      url: `${universityData.root_url}/wp-json/wp/v2/note/${currentNoteContainer.data('note-id')}`,
+      type: 'DELETE',
+      success: response => {
+        console.log('Deleted successfully');
+        console.log(response);
+        currentNoteContainer.slideUp();
+      },
+      error: error => {
+        console.log('error');
+        console.log(error);
+      }
+    });
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MyNotes);
+
+/***/ }),
+
+/***/ "./src/modules/Search.js":
+/*!*******************************!*\
+  !*** ./src/modules/Search.js ***!
+  \*******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -254,7 +386,7 @@ class Search {
                                     <a class="professor-card" href="${professor?.permalink}">
                                         <img src="${professor?.image}" alt=""
                                              class="professor-card__image">
-                                        <span class="professor-card__name">${professor?.title}</span>
+                                        <span class="professor-card__name">${professor?.title}</span> 
                                     </a>
                                 </li>
                             `).join('')}
