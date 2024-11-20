@@ -37,6 +37,7 @@
 						<?php echo esc_html( get_the_title( $parent_id ) ); ?>
                     </a>
                 </h2>
+                
                 <ul class="min-list">
 					<?php
 					$find_children_of = $parent_id ? $parent_id : get_the_ID();
