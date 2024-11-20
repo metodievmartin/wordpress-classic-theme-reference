@@ -142,3 +142,33 @@ function university_adjust_queries( $query ) {
 }
 
 add_action( 'pre_get_posts', 'university_adjust_queries' );
+
+// Register a new setting - maximum notes per user limit
+function note_limit_register_setting() {
+	register_setting( 'writing', 'note_limit', [
+		'type'              => 'integer',
+		'description'       => 'Maximum number of notes a user can create.',
+		'sanitize_callback' => 'absint',
+		'default'           => 5,
+	] );
+
+	add_settings_field(
+		'note_limit_field', // Field ID
+		'Maximum Notes Limit', // Field Title
+		'note_limit_field_callback', // Callback function to render the field
+		'writing', // Settings page
+		'default', // Section (default is fine)
+		[
+			'label_for' => 'note_limit',
+		]
+	);
+}
+
+add_action( 'admin_init', 'note_limit_register_setting' );
+
+// Render the field in the admin settings page
+function note_limit_field_callback( $args ) {
+	// Default is 5
+	$value = get_option( 'note_limit', 5 );
+	echo '<input type="number" id="' . esc_attr( $args['label_for'] ) . '" name="note_limit" value="' . esc_attr( $value ) . '" min="1" />';
+}

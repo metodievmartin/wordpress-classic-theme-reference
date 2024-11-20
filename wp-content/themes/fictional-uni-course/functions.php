@@ -31,8 +31,9 @@ function boilerplate_load_assets() {
 	wp_enqueue_style( 'theme-extra-css', get_theme_file_uri( '/build/style-index.css' ) );
 
 	wp_localize_script( 'theme-main-js', 'universityData', array(
-		'root_url' => get_site_url(),
-		'nonce'    => wp_create_nonce( 'wp_rest' ),
+		'root_url'        => get_site_url(),
+		'nonce'           => wp_create_nonce( 'wp_rest' ),
+		'user_note_limit' => get_option( 'note_limit', 5 ),
 	) );
 }
 
@@ -163,9 +164,13 @@ add_filter( 'wp_insert_post_data', 'make_note_private', 10, 2 );
 
 function make_note_private( $data, $post_data ) {
 	if ( $data['post_type'] === 'note' ) {
+		// Fetch the configurable limit
+		// Default is 5 if not set
+		$note_limit = get_option( 'note_limit', 5 );
+
 		// Enforces a limit how many Notes a user can have.
 		// Checking for ID to make sure it's applied only for post creation and not for editing or deleting a note.
-		if ( count_user_posts( get_current_user_id(), 'note' ) >= 5 && ! $post_data['ID'] ) {
+		if ( count_user_posts( get_current_user_id(), 'note' ) >= $note_limit && ! $post_data['ID'] ) {
 			die( 'You have reached your note limit.' );
 		}
 

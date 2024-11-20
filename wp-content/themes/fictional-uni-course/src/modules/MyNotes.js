@@ -142,7 +142,7 @@ class MyNotes {
         console.log('Deleted successfully');
         console.log(response);
         currentNoteContainer.slideUp();
-        if (response.user_note_count < 5) {
+        if (response.user_note_count < universityData.user_note_limit) {
           $('.note-limit-message').removeClass('active');
         }
       },
