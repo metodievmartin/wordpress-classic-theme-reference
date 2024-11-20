@@ -90,6 +90,9 @@ class MyNotes {
           .slideDown();
       },
       error: (error) => {
+        if (error.responseText === 'You have reached your note limit.') {
+          $('.note-limit-message').addClass('active');
+        }
         console.log('error');
         console.log(error);
       },
@@ -139,6 +142,9 @@ class MyNotes {
         console.log('Deleted successfully');
         console.log(response);
         currentNoteContainer.slideUp();
+        if (response.user_note_count < 5) {
+          $('.note-limit-message').removeClass('active');
+        }
       },
       error: (error) => {
         console.log('error');

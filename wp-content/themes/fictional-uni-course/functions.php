@@ -8,6 +8,12 @@ function university_custom_rest() {
 			return get_the_author();
 		},
 	) );
+
+	register_rest_field( 'note', 'user_note_count', array(
+		'get_callback' => function () {
+			return count_user_posts( get_current_user_id(), 'note' );
+		},
+	) );
 }
 
 add_action( 'rest_api_init', 'university_custom_rest' );
@@ -153,14 +159,22 @@ function university_map_api( $api ) {
 add_filter( 'acf/fields/google_map/api', 'university_map_api' );
 
 // Force note posts to be private
-add_filter( 'wp_insert_post_data', 'make_note_private' );
+add_filter( 'wp_insert_post_data', 'make_note_private', 10, 2 );
 
-function make_note_private( $data ) {
+function make_note_private( $data, $post_data ) {
 	if ( $data['post_type'] === 'note' ) {
+		// Enforces a limit how many Notes a user can have.
+		// Checking for ID to make sure it's applied only for post creation and not for editing or deleting a note.
+		if ( count_user_posts( get_current_user_id(), 'note' ) >= 5 && ! $post_data['ID'] ) {
+			die( 'You have reached your note limit.' );
+		}
+
+		// Sanitizing the content before saving it in the DB
 		$data['post_title']   = sanitize_text_field( $data['post_title'] );
 		$data['post_content'] = sanitize_textarea_field( $data['post_content'] );
 	}
 
+	// Makes every created note private
 	if ( $data['post_type'] === 'note' && $data['post_status'] !== 'trash' ) {
 		$data['post_status'] = 'private';
 	}

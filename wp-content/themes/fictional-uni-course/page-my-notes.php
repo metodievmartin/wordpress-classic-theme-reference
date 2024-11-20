@@ -29,6 +29,7 @@ get_header();
             <input class="new-note-title" type="text" placeholder="Title">
             <textarea class="new-note-body" name="" id="" placeholder="Your note here..."></textarea>
             <span class="submit-note">Create note</span>
+            <span class="note-limit-message">Note limit reached: Please, delete an existing note to male room for a new one.</span>
         </div>
 
         <ul class="min-list link-list" id="my-notes">
