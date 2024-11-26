@@ -27,27 +27,31 @@
 					) );
 
 					$exists_status = 'no';
+					$like_id       = '';
 
-					$exists_query = new WP_Query( array(
-						'author'     => get_current_user_id(),
-						'post_type'  => 'like',
-						'meta_query' => array(
-							array(
-								'key'     => 'liked_professor_id',
-								'compare' => '=',
-								'value'   => get_the_ID(),
+					if ( is_user_logged_in() ) {
+						$exists_query = new WP_Query( array(
+							'author'     => get_current_user_id(),
+							'post_type'  => 'like',
+							'meta_query' => array(
+								array(
+									'key'     => 'liked_professor_id',
+									'compare' => '=',
+									'value'   => get_the_ID(),
+								),
 							),
-						),
-					) );
+						) );
 
-					if ( $exists_query->found_posts ) {
-						$exists_status = 'yes';
+						if ( $exists_query->found_posts ) {
+							$exists_status = 'yes';
+							$like_id       = $exists_query->posts[0]->ID;
+						}
 					}
-
 					?>
 
-
-                    <span class="like-box" data-exists="<?php echo $exists_status ?>">
+                    <span class="like-box" data-professor-id="<?php the_ID(); ?>"
+                          data-exists="<?php echo $exists_status ?>"
+                          data-like-id="<?php echo $like_id ?>">
                         <i class="fa fa-heart-o" aria-hidden="true"></i>
                         <i class="fa fa-heart" aria-hidden="true"></i>
                         <span class="like-count"><?php echo $like_count->found_posts; ?></span>
