@@ -110,6 +110,22 @@ function university_post_types() {
 			'singular_name' => 'Note',
 		),
 	) );
+
+	// Likes Post Type
+	register_post_type( 'like', array(
+		'public'    => false, // will hide the likes on the front-end
+		'show_ui'   => true, // will show the likes in the admin dashboard
+		'supports'  => array( 'title' ),
+		'menu_icon' => 'dashicons-heart',
+		'labels'    => array(
+			'name'          => 'Likes',
+			'add_new'       => 'Add New Like',
+			'add_new_item'  => 'Add New Like',
+			'edit_item'     => 'Edit Like',
+			'all_items'     => 'All Likes',
+			'singular_name' => 'Like',
+		),
+	) );
 }
 
 add_action( 'init', 'university_post_types' );
