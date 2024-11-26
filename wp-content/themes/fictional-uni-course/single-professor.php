@@ -14,6 +14,44 @@
                 </div>
 
                 <div class="two-thirds">
+					<?php
+					$like_count = new WP_Query( array(
+						'post_type'  => 'like',
+						'meta_query' => array(
+							array(
+								'key'     => 'liked_professor_id',
+								'compare' => '=',
+								'value'   => get_the_ID(),
+							),
+						),
+					) );
+
+					$exists_status = 'no';
+
+					$exists_query = new WP_Query( array(
+						'author'     => get_current_user_id(),
+						'post_type'  => 'like',
+						'meta_query' => array(
+							array(
+								'key'     => 'liked_professor_id',
+								'compare' => '=',
+								'value'   => get_the_ID(),
+							),
+						),
+					) );
+
+					if ( $exists_query->found_posts ) {
+						$exists_status = 'yes';
+					}
+
+					?>
+
+
+                    <span class="like-box" data-exists="<?php echo $exists_status ?>">
+                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                        <span class="like-count"><?php echo $like_count->found_posts; ?></span>
+                    </span>
 					<?php echo get_field( 'main_body_content' ) ?>
                 </div>
             </div>
