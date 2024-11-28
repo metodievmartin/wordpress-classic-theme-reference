@@ -6,6 +6,8 @@
  * Version: 1.0
  * Author: Martin Metodiev
  * Author URI: https://github.com/metodievmartin
+ * Text Domain: wcp-domain
+ * Domain Path: /languages
  */
 
 class Word_Count_And_Read_Time_Plugin {
@@ -26,13 +28,14 @@ class Word_Count_And_Read_Time_Plugin {
 
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
 		add_action( 'admin_init', array( $this, 'settings_init' ) );
+		add_action( 'init', array( $this, 'load_languages' ) );
 		add_filter( 'the_content', array( $this, 'filter_the_content' ) );
 	}
 
 	function add_settings_page() {
 		add_options_page(
-			'Word Count Settings',
-			'Word Count',
+			esc_html__( 'Word Count Settings', 'wcp-domain' ),
+			esc_html__( 'Word Count', 'wcp-domain' ),
 			'manage_options',
 			$this->page,
 			array( $this, 'settings_page_html' ),
@@ -66,6 +69,14 @@ class Word_Count_And_Read_Time_Plugin {
 		return $content;
 	}
 
+	function load_languages() {
+		load_plugin_textdomain(
+			'wcp-domain',
+			false,
+			dirname( plugin_basename( __FILE__ ) ) . '/languages'
+		);
+	}
+
 	// =========== Helper functions ===========
 
 	private function should_apply_filter() {
@@ -90,7 +101,7 @@ class Word_Count_And_Read_Time_Plugin {
 	private function register_location_setting() {
 		add_settings_field(
 			'wcp_location',
-			'Display Location',
+			esc_html__( 'Display Location', 'wcp-domain' ),
 			array( $this, 'display_location_html' ),
 			$this->page,
 			$this->section_id
@@ -109,7 +120,7 @@ class Word_Count_And_Read_Time_Plugin {
 	private function register_headline_setting() {
 		add_settings_field(
 			'wcp_headline',
-			'Headline Text',
+			esc_html__( 'Headline Text', 'wcp-domain' ),
 			array( $this, 'headline_text_html' ),
 			$this->page,
 			$this->section_id
@@ -128,7 +139,7 @@ class Word_Count_And_Read_Time_Plugin {
 	private function register_word_count_setting() {
 		add_settings_field(
 			'wcp_wordcount',
-			'Word Count',
+			esc_html__( 'Word Count', 'wcp-domain' ),
 			array( $this, 'checkbox_html' ),
 			$this->page,
 			$this->section_id,
@@ -148,7 +159,7 @@ class Word_Count_And_Read_Time_Plugin {
 	private function register_character_count_setting() {
 		add_settings_field(
 			'wcp_charactercount',
-			'Character Count',
+			esc_html__( 'Character Count', 'wcp-domain' ),
 			array( $this, 'checkbox_html' ),
 			$this->page,
 			$this->section_id,
@@ -168,7 +179,7 @@ class Word_Count_And_Read_Time_Plugin {
 	private function register_read_time_setting() {
 		add_settings_field(
 			'wcp_readtime',
-			'Read Time',
+			esc_html__( 'Read Time', 'wcp-domain' ),
 			array( $this, 'checkbox_html' ),
 			$this->page,
 			$this->section_id,
@@ -223,7 +234,7 @@ class Word_Count_And_Read_Time_Plugin {
 		?>
 
         <div class="wrap">
-            <h1>Word Count Settings</h1>
+            <h1><?php esc_html_e( 'Word Count Settings', 'wcp-domain' ) ?></h1>
             <form action="options.php" method="post">
 
 				<?php
