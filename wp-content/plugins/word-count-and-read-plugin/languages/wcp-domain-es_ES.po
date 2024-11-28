@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Word Count & Read Time Plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-28 11:29+0000\n"
+"PO-Revision-Date: 2024-11-28 11:46+0000\n"
+"Last-Translator: Martin\n"
+"Language-Team: Spanish (Spain)\n"
+"Language: es_ES\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.14; wp-6.7\n"
+"X-Domain: wcp-domain"
+
+#. Description of the plugin
+msgid ""
+"A simple plugin that calculates word and character count and read time for "
+"posts."
+msgstr ""
+"Un plugin sencillo que calcula el recuento de palabras y caracteres y el "
+"tiempo de lectura para las publicaciones."
+
+#: word-count-and-read-plugin.php:162
+msgid "Character Count"
+msgstr "Recuento de Caracteres"
+
+#: word-count-and-read-plugin.php:104
+msgid "Display Location"
+msgstr "Ubicación de Visualización"
+
+#: word-count-and-read-plugin.php:123
+msgid "Headline Text"
+msgstr "Texto del Título"
+
+#. Author URI of the plugin
+msgid "https://github.com/metodievmartin"
+msgstr ""
+
+#. Author of the plugin
+msgid "Martin Metodiev"
+msgstr ""
+
+#: word-count-and-read-plugin.php:182
+msgid "Read Time"
+msgstr "Tiempo de Lectura"
+
+#: word-count-and-read-plugin.php:38 word-count-and-read-plugin.php:142
+msgid "Word Count"
+msgstr "Recuento de Palabras"
+
+#. Name of the plugin
+msgid "Word Count & Read Time Plugin"
+msgstr "Plugin de Recuento de Palabras y Tiempo de Lectura"
+
+#: word-count-and-read-plugin.php:37 word-count-and-read-plugin.php:237
+msgid "Word Count Settings"
+msgstr "Configuración de Recuento de Palabras"

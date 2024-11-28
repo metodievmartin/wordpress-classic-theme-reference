@@ -1,0 +1,59 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Word Count & Read Time Plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-28 11:56+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.14; wp-6.7\n"
+"X-Domain: wcp-domain"
+
+#. Description of the plugin
+msgid ""
+"A simple plugin that calculates word and character count and read time for "
+"posts."
+msgstr ""
+
+#: word-count-and-read-plugin.php:162
+msgid "Character Count"
+msgstr ""
+
+#: word-count-and-read-plugin.php:104
+msgid "Display Location"
+msgstr ""
+
+#: word-count-and-read-plugin.php:123
+msgid "Headline Text"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://github.com/metodievmartin"
+msgstr ""
+
+#. Author of the plugin
+msgid "Martin Metodiev"
+msgstr ""
+
+#: word-count-and-read-plugin.php:182
+msgid "Read Time"
+msgstr ""
+
+#: word-count-and-read-plugin.php:38 word-count-and-read-plugin.php:142
+msgid "Word Count"
+msgstr ""
+
+#. Name of the plugin
+msgid "Word Count & Read Time Plugin"
+msgstr ""
+
+#: word-count-and-read-plugin.php:37 word-count-and-read-plugin.php:237
+msgid "Word Count Settings"
+msgstr ""
