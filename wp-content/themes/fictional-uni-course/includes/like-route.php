@@ -13,13 +13,15 @@ add_action( 'rest_api_init', 'university_like_routes' );
  */
 function university_like_routes() {
 	register_rest_route( 'university/v1', 'manage-like', array(
-		'methods'  => 'POST',
-		'callback' => 'university_rest_create_like',
+		'methods'             => 'POST',
+		'callback'            => 'university_rest_create_like',
+		'permission_callback' => '__return_true',
 	) );
 
 	register_rest_route( 'university/v1', 'manage-like', array(
-		'methods'  => 'DELETE',
-		'callback' => 'university_rest_delete_like',
+		'methods'             => 'DELETE',
+		'callback'            => 'university_rest_delete_like',
+		'permission_callback' => '__return_true',
 	) );
 }
 
